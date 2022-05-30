@@ -1,4 +1,8 @@
-/old
+# DB, not in use, the images are being served as is
 /postgres/data
 /postgres/pgadmin
-/backend/app/node_modules
+/postgres
+
+# misc
+**/node_modules
+/old
