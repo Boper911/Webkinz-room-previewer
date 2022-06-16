@@ -2,9 +2,11 @@ version: '3.8'
 
 services:
   frontend:
-    container_name: frontend
+    container_name: webkinz-frontend-prod
     image: docker-nextjs-dev
-    build: ./frontend
+    build:
+      context: frontend
+      dockerfile: ./Dockerfile.prod
     volumes:
       - ./frontend/app/api:/app/api
       - ./frontend/app/components:/app/components
@@ -18,7 +20,7 @@ services:
       - frontend
 
   backend:
-    container_name: backend
+    container_name: webkinz-backend-prod
     build:
       context: ./backend
       dockerfile: Dockerfile.dev # on move to prod, update this

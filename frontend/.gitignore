@@ -29,9 +29,14 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+.env.docker
 
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
+
+/public/flooring
+/public/wallpaint
+/public/wallpaper
