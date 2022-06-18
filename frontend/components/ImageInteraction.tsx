@@ -1,11 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/generateRoom.module.css";
-import Image from "next/image";
 import { getImage } from "../api/api";
-
-import Container from "./DnD/Container";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import DragImages from "./Draggable/DragImages";
 
 type Props = {
     size: string;
@@ -45,12 +41,10 @@ export default function ImageInteraction({
             className={styles.image_stack}
             style={{ width: "100%", height: "100%" }}
         >
-            <DndProvider backend={HTML5Backend}>
-                <Container
-                    wallpaper={selectedWallpaper}
-                    flooring={selectedFlooring}
-                />
-            </DndProvider>
+            <DragImages
+                wallpaper={selectedWallpaper}
+                flooring={selectedFlooring}
+            />
         </div>
     );
 }
