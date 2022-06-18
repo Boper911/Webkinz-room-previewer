@@ -3,7 +3,7 @@ import styles from "../styles/generateRoom.module.css";
 import Image from "next/image";
 type Props = { type: string; imageList: any; handler: Function };
 
-export default function Header({ type, imageList, handler }: Props) {
+export default function Search({ type, imageList, handler }: Props) {
     const imageClick = async (image: string) => {
         let url = image;
         let urlParts = url.split("/");
