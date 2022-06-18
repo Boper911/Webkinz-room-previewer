@@ -2,7 +2,7 @@
 const nextConfig = {
     reactStrictMode: true,
     images: {
-        domains: ['192.168.1.5'], // todo - edit this together with package.json proxy
+        domains: ['localhost', '192.168.1.5', 'awot.dev'], // todo - edit this together with package.json proxy
     },
 
     experimental: {

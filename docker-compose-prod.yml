@@ -6,13 +6,7 @@ services:
     image: docker-nextjs-dev
     build:
       context: frontend
-      dockerfile: ./Dockerfile.prod
-    volumes:
-      - ./frontend/app/api:/app/api
-      - ./frontend/app/components:/app/components
-      - ./frontend/app/pages:/app/pages
-      - ./frontend/app/public:/app/public
-      - ./frontend/app/styles:/app/styles
+      dockerfile: Dockerfile.prod
     ports:
       - 3000:3000
     restart: unless-stopped
