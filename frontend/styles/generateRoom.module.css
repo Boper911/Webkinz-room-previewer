@@ -5,8 +5,7 @@
     display: grid;
     grid-template-columns: 25vw calc(50vw - var(--scrollbar-width)) 25vw;
     grid-template-rows: auto;
-    grid-template-areas:
-        "leftSearch main rightSearch"
+    grid-template-areas: "leftSearch main rightSearch";
 }
 
 .item_main {
@@ -24,7 +23,6 @@
     background-color: white;
 }
 
-
 .image_grid {
     display: grid;
     gap: 0.1rem;
@@ -36,7 +34,6 @@
     height: 100%;
     object-fit: cover;
 }
-
 
 .form_input {
     margin: 1rem 1rem 1rem 1rem;
@@ -55,7 +52,6 @@
 .form_input button[type="button"] {
     background-color: rgb(255, 40, 40);
 }
-
 
 /* Middile screen */
 

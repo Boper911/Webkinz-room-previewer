@@ -2,7 +2,7 @@
 const nextConfig = {
     reactStrictMode: true,
     images: {
-        domains: ['localhost', '192.168.1.5', 'awot.dev'], // todo - edit this together with package.json proxy
+        domains: ["localhost", "192.168.1.5", "awot.dev"], // todo - edit this together with package.json proxy
     },
 
     experimental: {
@@ -11,10 +11,10 @@ const nextConfig = {
 
     resolve: {
         fallback: {
-            'react/jsx-runtime': 'react/jsx-runtime.js',
-            'react/jsx-dev-runtime': 'react/jsx-dev-runtime.js',
+            "react/jsx-runtime": "react/jsx-runtime.js",
+            "react/jsx-dev-runtime": "react/jsx-dev-runtime.js",
         },
     },
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
