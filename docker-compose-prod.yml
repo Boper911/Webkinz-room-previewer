@@ -6,7 +6,6 @@ networks:
     attachable: true
     name: proxy
 
-
 services:
   frontend:
     container_name: webkinz-frontend-prod
@@ -31,7 +30,7 @@ services:
   backend:
     container_name: webkinz-backend-prod
     build:
-      context: ./backend
+      context: backend
       dockerfile: Dockerfile.dev # on move to prod, update this
     volumes:
       - /usr/src/app/node_modules
@@ -50,4 +49,3 @@ services:
     networks:
       - internal
       - proxy
-
