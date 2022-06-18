@@ -1,28 +1,3 @@
-.main {
-    --scrollbar-width: calc(100vw - 100%);
-
-    height: 100vh;
-    display: grid;
-    grid-template-columns: 25vw calc(50vw - var(--scrollbar-width)) 25vw;
-    grid-template-rows: auto;
-    grid-template-areas: "leftSearch main rightSearch";
-}
-
-.item_main {
-    grid-area: main;
-    background-color: gray;
-}
-
-.item_left {
-    grid-area: leftSearch;
-    background-color: white;
-}
-
-.item_right {
-    grid-area: rightSearch;
-    background-color: white;
-}
-
 .image_grid {
     display: grid;
     gap: 0.1rem;
@@ -55,9 +30,7 @@
 
 /* Middile screen */
 
-.image_stack {
-    text-align: center;
-}
+
 
 .middle_main .item__bottom {
     position: relative;

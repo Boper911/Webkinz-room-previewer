@@ -4,35 +4,33 @@ import Image from "next/image";
 import { getPreviewImages, searchImages } from "../../api/api";
 import LoadMore from "./LoadMore";
 
-type Props = { type: string; handler: Function };
+// type = "flooring" or "wallpaper"
+type Props = { type: string; callback: Function };
 
-export default function ImagePicker({ type, handler }: Props) {
+export default function ImagePicker({
+    type,
+    callback: selectedImageCallback,
+}: Props) {
     const [search, setSearch] = useState<string>("");
-    const [imageList, setImageList] = useState<Array<string>>([]);
+    const [previews, setPreviews] = useState<Array<string>>([]);
     const [nextCursor, setNextCursor] = useState<number>(0);
     const [selected, setSelected] = useState<string>("");
 
     useEffect(() => {
         const fetchData = async () => {
-            await fetchImages(type, nextCursor);
+            await fetchImagePreviews(type, nextCursor);
         };
         fetchData();
     }, []);
 
-    useEffect(() => {
-        // get images based on type
-    }, [type]);
-
-    async function fetchImages(type: string, nextCursor: number) {
+    async function fetchImagePreviews(type: string, nextCursor: number) {
         const responseJson = await getPreviewImages(type, nextCursor);
         for (let index = 0; index < responseJson.data.length; index++) {
             const name = responseJson.data[index];
-            responseJson.data[
-                index
-            ] = `http://192.168.1.5:5000/api/image/${type}/${name}`;
+            responseJson.data[index] = `/${type}/${name}`;
         }
 
-        setImageList(responseJson.data);
+        setPreviews(responseJson.data);
         setNextCursor(responseJson.nextCursor);
     }
 
@@ -40,12 +38,12 @@ export default function ImagePicker({ type, handler }: Props) {
         event.preventDefault();
 
         const responseJson = await searchImages(type, search, nextCursor);
-        setImageList(responseJson.data);
+        setPreviews(responseJson.data);
         setNextCursor(responseJson.nextCursor);
     };
 
     const resetForm = async (event: any) => {
-        await fetchImages(type, 0);
+        await fetchImagePreviews(type, 0);
         setSearch("");
     };
 
@@ -56,7 +54,7 @@ export default function ImagePicker({ type, handler }: Props) {
     ) => {
         const responseJson = await searchImages(type, searchValue, nextCursor);
 
-        setImageList((currentList) => [...currentList, ...responseJson.data]);
+        setPreviews((currents) => [...currents, ...responseJson.data]);
         setNextCursor(responseJson.nextCursor);
     };
 
@@ -66,7 +64,8 @@ export default function ImagePicker({ type, handler }: Props) {
         let itemName = urlParts[urlParts.length - 1];
         itemName = itemName.split(".")[0]; // remove .png
 
-        handler(type, itemName);
+        selectedImageCallback(type, itemName);
+        setSelected(itemName);
     };
 
     return (
@@ -111,12 +110,12 @@ export default function ImagePicker({ type, handler }: Props) {
             <div
                 className={styles.image_grid}
                 style={{
-                    minHeight: "82vh",
-                    maxHeight: "82vh",
+                    minHeight: "83vh",
+                    maxHeight: "83vh",
                     overflow: "auto",
                 }}
             >
-                {imageList.map(
+                {previews.map(
                     (
                         image: string, // image is a src_url to the server. like http://192.168.1.5:5000/api/image/flooring/Bakeshopflooring.png
                         index: number
