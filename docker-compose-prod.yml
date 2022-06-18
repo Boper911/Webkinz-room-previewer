@@ -1,5 +1,12 @@
 version: '3.8'
 
+networks:
+  internal: null
+  proxy:
+    attachable: true
+    name: proxy
+
+
 services:
   frontend:
     container_name: webkinz-frontend-prod
@@ -10,8 +17,16 @@ services:
     ports:
       - 3000:3000
     restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.docker.network: proxy
+      traefik.http.routers.webkinz.rule: Host(`webkinz.awot.dev`)
+      traefik.http.routers.webkinz.entrypoints: websecure
+      traefik.http.routers.webkinz.tls: true
+      com.centurylinklabs.watchtower.enable: false
     networks:
-      - frontend
+      - internal
+      - proxy
 
   backend:
     container_name: webkinz-backend-prod
@@ -24,42 +39,15 @@ services:
     ports:
       - 5000:5000
     restart: unless-stopped
+    labels:
+      traefik.enable: true
+      traefik.docker.network: proxy
+      traefik.http.routers.webkinz-api.rule: Host(`webkinz-api.awot.dev`)
+      traefik.http.routers.webkinz-api.entrypoints: websecure
+      traefik.http.routers.webkinz-api.tls: true
+      traefik.http.services.webkinz-api.loadbalancer.server.port: 5000
+      com.centurylinklabs.watchtower.enable: false
     networks:
-      - frontend
+      - internal
+      - proxy
 
-  # db:
-  #   container_name: postgres
-  #   image: postgres:latest
-  #   environment:
-  #     POSTGRES_USER: ${POSTGRES_USER:-pern_db}
-  #     POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-root}
-  #     PGDATA: /var/lib/postgresql/data
-  #   volumes:
-  #     - ./postgres/data:/var/lib/postgresql/data
-  #     - ./postgres/init.sql:/docker-entrypoint-initdb.d/docker_postgres_init.sql
-  #   ports:
-  #     - 5432:5432
-  #   networks:
-  #     - db
-  #   restart: unless-stopped
-
-  # db_manager:
-  #   container_name: pgadmin
-  #   image: dpage/pgadmin4:latest
-  #   environment:
-  #     PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-  #     PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-  #   volumes:
-  #     - ./postgres/pgadmin:/root/.pgadmin
-  #   ports:
-  #     - "${PGADMIN_PORT:-5050}:80"
-  #   depends_on:
-  #     - db
-  #   networks:
-  #     - db
-  #   restart: unless-stopped
-
-networks:
-  frontend: null
-  # db:
-  #   driver: bridge

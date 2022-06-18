@@ -18,14 +18,6 @@ export default function DragImages({ wallpaper, flooring }: Props) {
         b: { url: flooring },
     });
 
-    // Set default positions, window didnt exist before running in the useEffect
-    useEffect(() => {
-        setBoxes({
-            a: { url: wallpaper }, // some magic numbers that works with most walls
-            b: { url: flooring }, // some magic numbers that works with most walls
-        });
-    }, []);
-
     useEffect(() => {
         setBoxes({
             a: { url: wallpaper },
@@ -41,7 +33,7 @@ export default function DragImages({ wallpaper, flooring }: Props) {
                 };
 
                 return (
-                    <Draggable>
+                    <Draggable key={key}>
                         <Resizable
                             defaultSize={{
                                 width: 400,
