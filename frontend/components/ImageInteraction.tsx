@@ -20,10 +20,10 @@ export default function ImageInteraction({
     useEffect(() => {
         const fetchData = async () => {
             if (wallpaperPreview != "") {
-                await fetchImage("wallpaper", wallpaperPreview + size + ".png");
+                await fetchImage("wallpaper", wallpaperPreview + "large" + ".png");
             }
             if (flooringPreview != "") {
-                await fetchImage("flooring", flooringPreview + size + ".png");
+                await fetchImage("flooring", flooringPreview + "large" + ".png");
             }
         };
 
